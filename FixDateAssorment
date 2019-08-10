@@ -1,0 +1,166 @@
+Most Profitable App Categories on Apple and Google Play Store
+The purpose of this project is to find free to download apps on the Apple and Google Play Store that will generate the highest user engagement with advertisements.
+
+This project is meant to a serve for a firm that develops phone apps that are free to download. The firms revenue mainly consists of in-app advertisements, therefore apps that attract more users will generate more revenue.
+
+The Data
+In this project we will be using the following sample data from the Apple Store and Google Play Store respectively:
+
+A data set containing data about approximately 10,000 Android apps from Google Play; retrieved on August 2018.
+A data set containing data about approximately 10,000 Android apps from Google Play; retrieved on July 2017.
+from csv import reader
+​
+opened_file = open('googleplaystore.csv')
+read_file = reader(opened_file)
+google_play = list(read_file)
+google_header = google_play[0]
+google_play = google_play[1:]
+​
+opened_file = open('AppleStore.csv')
+read_file = reader(opened_file)
+apple = list(read_file)
+apple_header = apple[0]
+apple = apple[1:]
+​
+def explore_data(dataset, start, end, rows_and_columns=False):
+    dataset_slice = dataset[start:end]    
+    for row in dataset_slice:
+        print(row)
+        print('\n') # adds a new (empty) line between rows
+        
+    if rows_and_columns:
+        print('Number of rows:', len(dataset))
+        print('Number of columns:', len(dataset[0]))
+​
+print(google_header)
+print('\n')
+explore_data(google_play, 0, 3, True)
+​
+print(apple_header)
+print('\n')
+explore_data(apple, 0, 3, True)
+​
+['App', 'Category', 'Rating', 'Reviews', 'Size', 'Installs', 'Type', 'Price', 'Content Rating', 'Genres', 'Last Updated', 'Current Ver', 'Android Ver']
+
+
+['Photo Editor & Candy Camera & Grid & ScrapBook', 'ART_AND_DESIGN', '4.1', '159', '19M', '10,000+', 'Free', '0', 'Everyone', 'Art & Design', 'January 7, 2018', '1.0.0', '4.0.3 and up']
+
+
+['Coloring book moana', 'ART_AND_DESIGN', '3.9', '967', '14M', '500,000+', 'Free', '0', 'Everyone', 'Art & Design;Pretend Play', 'January 15, 2018', '2.0.0', '4.0.3 and up']
+
+
+['U Launcher Lite – FREE Live Cool Themes, Hide Apps', 'ART_AND_DESIGN', '4.7', '87510', '8.7M', '5,000,000+', 'Free', '0', 'Everyone', 'Art & Design', 'August 1, 2018', '1.2.4', '4.0.3 and up']
+
+
+Number of rows: 10841
+Number of columns: 13
+['id', 'track_name', 'size_bytes', 'currency', 'price', 'rating_count_tot', 'rating_count_ver', 'user_rating', 'user_rating_ver', 'ver', 'cont_rating', 'prime_genre', 'sup_devices.num', 'ipadSc_urls.num', 'lang.num', 'vpp_lic']
+
+
+['284882215', 'Facebook', '389879808', 'USD', '0.0', '2974676', '212', '3.5', '3.5', '95.0', '4+', 'Social Networking', '37', '1', '29', '1']
+
+
+['389801252', 'Instagram', '113954816', 'USD', '0.0', '2161558', '1289', '4.5', '4.0', '10.23', '12+', 'Photo & Video', '37', '0', '29', '1']
+
+
+['529479190', 'Clash of Clans', '116476928', 'USD', '0.0', '2130805', '579', '4.5', '4.5', '9.24.12', '9+', 'Games', '38', '5', '18', '1']
+
+
+Number of rows: 7197
+Number of columns: 16
+print(google_play[10472])  
+print('\n')
+print(google_header)  
+print('\n')
+print(google_play[0])      
+​
+print(len(google_play))
+del google_play[10472]  
+# The app  is deleted for having a missing value in the
+# category column.
+print(len(android))
+​
+print(google_play[10473])
+['osmino Wi-Fi: free WiFi', 'TOOLS', '4.2', '134203', '4.1M', '10,000,000+', 'Free', '0', 'Everyone', 'Tools', 'August 7, 2018', '6.06.14', '4.4 and up']
+
+
+['App', 'Category', 'Rating', 'Reviews', 'Size', 'Installs', 'Type', 'Price', 'Content Rating', 'Genres', 'Last Updated', 'Current Ver', 'Android Ver']
+
+
+['Photo Editor & Candy Camera & Grid & ScrapBook', 'ART_AND_DESIGN', '4.1', '159', '19M', '10,000+', 'Free', '0', 'Everyone', 'Art & Design', 'January 7, 2018', '1.0.0', '4.0.3 and up']
+10840
+
+NameErrorTraceback (most recent call last)
+<ipython-input-4-2de596dfd6a2> in <module>()
+      9 # The app  is deleted for having a missing value in the
+     10 # category column.
+---> 11 print(len(android))
+     12 
+     13 print(google_play[10473])
+
+NameError: name 'android' is not defined
+
+The data for the Google Play Store seems to have numerous duplicates that need to be removed.
+
+duplicate_apps = []
+unique_apps = []
+​
+for app in apple:
+    name = app[0]
+    if name in unique_apps:
+        duplicate_apps.append(name)
+    else:
+        unique_apps.append(name)
+    
+print('Number of duplicate apps in the appl:', len(duplicate_apps))
+print('\n')
+print('Examples of duplicate apps:', duplicate_apps[:15])
+​
+duplicate_apps = []
+unique_apps = []
+​
+for app in google_play:
+    name = app[0]
+    if name in unique_apps:
+        duplicate_apps.append(name)
+    else:
+        unique_apps.append(name)
+    
+print('Number of duplicate apps:', len(duplicate_apps))
+print('\n')
+print('Examples of duplicate apps:', duplicate_apps[:15])
+Number of duplicate apps in the appl: 0
+
+
+Examples of duplicate apps: []
+Number of duplicate apps: 1180
+
+
+Examples of duplicate apps: ['Quick PDF Scanner + OCR FREE', 'Box', 'Google My Business', 'ZOOM Cloud Meetings', 'join.me - Simple Meetings', 'Box', 'Zenefits', 'Google Ads', 'Google My Business', 'Slack', 'FreshBooks Classic', 'Insightly CRM', 'QuickBooks Accounting: Invoicing & Expenses', 'HipChat - Chat Built for Teams', 'Xero Accounting Software']
+We will be removing all the duplicate apps except for the most recently created apps. The reasoning behind this is that the older apps may have been previous editions that are no longer available in the Play Store
+
+import datetime as dt
+​
+dt_format='%m/%Y'
+​
+reviews_latest ={}
+for app in google_play:
+    name=app[0]
+    date=app[11]
+    date_num=date.strftime(dtformat)
+    if name in reviews_latest and reviews_latest[name] < date_num:
+        reviews_latest[name]=date_num
+    elif name not in reviews_latest:
+        reviews_latest[name] = date_num
+​
+len(reviews_latest)
+
+AttributeErrorTraceback (most recent call last)
+<ipython-input-6-8e5e9a1d1746> in <module>()
+      7     name=app[0]
+      8     date=app[11]
+----> 9     date_num=date.strftime(dtformat)
+     10     if name in reviews_latest and reviews_latest[name] < date_num:
+     11         reviews_latest[name]=date_num
+
+AttributeError: 'str' object has no attribute 'strftime'
